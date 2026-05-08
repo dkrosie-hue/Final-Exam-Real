@@ -24,6 +24,10 @@ class Student:
     def __str__(self):
         return f"{self._name}: {self._grade}"
 
+student1 = Student("Dylan", 95)
+#Output: Dylan: 95
+print(student1) #automatically calls the __str__ method.
+
         
 
 if __name__ == "__main__":

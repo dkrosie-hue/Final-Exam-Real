@@ -48,4 +48,47 @@ def player_smells_a_wumpus(data):
 if __name__ == "__main__":
     print(player_smells_a_wumpus(cave))
 
+
+
+def get_data(filename):
+    """Retrieves the parsed JSON data from the given filename"""
+    with open(filename) as fh:
+        return json.load(fh)
+
+def earliest(data):
+    earliest_year = 2026
+    earliest_title = ""
+    for book in data['books']:
+        year = book.get('first_publish_year', 2026)
+        if year < earliest_year:
+            earliest_year = year
+            earliest_title = book['title']
+    print({earliest_title}, {earliest_year})
+    
+def get_num_subtitles(data):
+    count = 0
+    for book in data['books']:
+        if 'subtitle' in book:
+            count += 1
+            print({book['title']}, {book['subtitle']})
+    return count
+
+def get_unique_langs(data):
+    langs = set()
+    for book in data['books']:
+        translated_into = book.get('language', [])
+        langs = langs.union(set(translated_into))
+    print(langs)
+    print({len(langs)})
+
+if __name__ == '__main__':
+    data = get_data('sanderson.json') ## whatever the filename is put it in quotes
+    print(len(data['books']))
+    earliest(data)
+    get_unique_langs(data)
+    #only_author(data)
+
+
+
+
     
